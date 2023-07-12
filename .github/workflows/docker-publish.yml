@@ -34,11 +34,11 @@ jobs:
 
       - name: Lowercase repository
         run: |
-          echo "REPO=${IMAGE_NAME,,}" >>${IMAGE_NAME}
+          echo "${IMAGE_NAME,,}" >> ${IMAGE_NAME}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ REGISTRY }}/${{ IMAGE_NAME }}:latest
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
